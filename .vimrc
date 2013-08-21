@@ -30,7 +30,7 @@ set wildmenu
 set lazyredraw
 set splitright
 
-" Colors
+" COLORS
 " Darker gray statusline
 highlight StatusLine cterm=reverse ctermfg=26 ctermbg=15
 highlight StatusLineNC ctermfg=8 ctermbg=15

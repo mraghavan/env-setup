@@ -78,7 +78,7 @@ export EDITOR=vim
 
 function br()
 {
-    [[ -z "$1" ]] && echo "$0: missing argument"
+    [[ -z "$1" ]] && echo "$0: missing argument" && exit 1
     git checkout -b "$1"
     git branch --set-upstream "$1" master
 }

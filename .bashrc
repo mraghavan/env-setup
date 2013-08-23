@@ -76,7 +76,12 @@ export EDITOR=vim
 
 ### GIT ###
 
-alias br="git checkout -b"
+function br()
+{
+    [[ -z "$1" ]] && echo "$0: missing argument"
+    git checkout -b "$1"
+    git branch --set-upstream "$1" master
+}
 
 function land()
 {

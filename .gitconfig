@@ -1,0 +1,10 @@
+[alias]
+	amend = commit -a --amend
+	br = branch
+	ci = commit
+	co = checkout
+	st = status
+[user]
+	email = manishraghavan@gmail.com
+[core]
+	excludesfile = ~/.gitignore

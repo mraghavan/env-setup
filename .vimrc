@@ -52,7 +52,7 @@ highlight VertSplit ctermfg=black ctermbg=15
 " Coloring for menu
 highlight WildMenu ctermfg=black ctermbg=8
 " Coloring for tab line
-highlight TabLineFill ctermfg=black ctermbg=black
+highlight TabLineFill ctermfg=8 ctermbg=black
 highlight TabLine ctermfg=white ctermbg=8 cterm=none
 highlight TabLineSel ctermfg=white ctermbg=26 cterm=none
 highlight Title ctermfg=white ctermbg=none

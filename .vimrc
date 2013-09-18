@@ -29,6 +29,8 @@ set title				" title for terminal window
 set wildmenu
 set lazyredraw
 set splitright
+set showtabline=1
+set tabpagemax=15
 
 " COLORS
 " Darker gray statusline
@@ -36,7 +38,7 @@ highlight StatusLine cterm=reverse ctermfg=26 ctermbg=15
 highlight StatusLineNC ctermfg=8 ctermbg=15
 " Blue comments
 highlight Comment ctermfg=26
-" Brighter constnats
+" Brighter constants
 highlight Constant ctermfg=9
 " Brighter sky blue for identifiers
 highlight Identifier ctermfg=14
@@ -49,6 +51,11 @@ highlight Folded ctermfg=15 ctermbg=8
 highlight VertSplit ctermfg=0 ctermbg=15
 " Coloring for menu
 highlight WildMenu ctermfg=0 ctermbg=8
+" Coloring for tab line
+highlight TabLineFill ctermfg=grey ctermbg=grey
+highlight TabLine ctermfg=black ctermbg=grey cterm=none
+highlight TabLineSel ctermfg=white ctermbg=blue cterm=none
+highlight Title ctermfg=white ctermbg=none
 
 set laststatus=2
 set statusline=
@@ -99,6 +106,9 @@ nnoremap <leader>s :source ~/.vimrc<CR>
 " tab/shift+tab switch between windows
 nnoremap <Tab> <C-W>w
 nnoremap <S-Tab> <C-W>W
+nnoremap <C-t> :tabnew
+nnoremap <C-l> :tabn<CR>
+nnoremap <C-h> :tabp<CR>
 
 " ctrl+k toggle high visibility for the cursor
 nnoremap <C-K> :call HighlightNearCursor()<CR>

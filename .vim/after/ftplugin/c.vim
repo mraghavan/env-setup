@@ -12,7 +12,7 @@ ab incstr #include <string.h>
 set foldmethod=syntax
 
 " ctrl+c create include statement
-inoremap <C-c> #include <.h><esc>F<a
+inoremap <C-b> #include <.h><esc>F<a
 " ctrl+f create for loop
 inoremap <C-f> for (i = 0; i < ; i++) {<CR>}<esc>kf<la
 

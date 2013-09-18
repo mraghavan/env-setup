@@ -10,8 +10,6 @@ ab sop System.out.print
 ab sopl System.out.println
 ab sepl System.err.println
 
-set wildignore+=*.class
-
 set foldmethod=syntax
 
 " ctrl+f create for loop

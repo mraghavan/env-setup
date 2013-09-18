@@ -29,13 +29,13 @@ set title				" title for terminal window
 set wildmenu
 set lazyredraw
 set splitright
-set showtabline=1
+set showtabline=2
 set tabpagemax=15
 
 " COLORS
 " Darker gray statusline
-highlight StatusLine cterm=reverse ctermfg=26 ctermbg=15
-highlight StatusLineNC ctermfg=8 ctermbg=15
+highlight StatusLine cterm=reverse ctermfg=26 ctermbg=white
+highlight StatusLineNC ctermfg=8 ctermbg=white
 " Blue comments
 highlight Comment ctermfg=26
 " Brighter constants
@@ -44,30 +44,37 @@ highlight Constant ctermfg=9
 highlight Identifier ctermfg=14
 " Autocomplete menu highlighting - blue menu, black/yellow selection
 highlight Pmenu ctermbg=26
-highlight PmenuSel ctermfg=0 ctermbg=184
+highlight PmenuSel ctermfg=black ctermbg=184
 " Coloring for folding
 highlight Folded ctermfg=15 ctermbg=8
 " Coloring for border
-highlight VertSplit ctermfg=0 ctermbg=15
+highlight VertSplit ctermfg=black ctermbg=15
 " Coloring for menu
-highlight WildMenu ctermfg=0 ctermbg=8
+highlight WildMenu ctermfg=black ctermbg=8
 " Coloring for tab line
-highlight TabLineFill ctermfg=grey ctermbg=grey
-highlight TabLine ctermfg=black ctermbg=grey cterm=none
-highlight TabLineSel ctermfg=white ctermbg=blue cterm=none
+highlight TabLineFill ctermfg=black ctermbg=black
+highlight TabLine ctermfg=white ctermbg=8 cterm=none
+highlight TabLineSel ctermfg=white ctermbg=26 cterm=none
 highlight Title ctermfg=white ctermbg=none
 
 set laststatus=2
 set statusline=
-set statusline+=\                 		" start of status
+set statusline+=\                 	        " start of status
 set statusline+=%-20.80f					" file name
-set statusline+=\ line\ %l/%L				" line #/total
-set statusline+=\ column\ %-4.(%c%)			" column #
+set statusline+=\ [%l/%L,			        " line #/total
+set statusline+=%-(%c%)]			        " column #
 set statusline+=%-4.(%m%)					" modified [+]
 set statusline+=%-5.(%r%)					" read only [RO]
 set statusline+=%-5.(%y%)					" file type [vim]
 set statusline+=%=							" right align
 set statusline+=%<%P\ 
+
+set wildignore=
+set wildignore+=*.out,*.o,*.class
+set wildignore+=.git/,.hg/,.svn/
+set wildignore+=.DS_Store,.localized
+set wildignore+=*.bmp,*.gif,*.jpg,*.png
+set wildignore+=*.swp
 
 set foldmethod=syntax
 " Don't fold new file
@@ -117,6 +124,8 @@ nnoremap <silent> <leader>dw :call ScrollOther("right", "up")<CR>
 nnoremap <silent> <leader>ds :call ScrollOther("right", "down")<CR>
 nnoremap <silent> <leader>aw :call ScrollOther("left", "up")<CR>
 nnoremap <silent> <leader>as :call ScrollOther("left", "down")<CR>
+
+command Q execute "tabclose"
 
 function ScrollOther(horiz, vert)
 	if a:horiz == "left"

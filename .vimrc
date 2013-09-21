@@ -110,6 +110,7 @@ inoremap ≠ <Del>
 nnoremap <silent> <leader>/ :nohlsearch<CR>
 nnoremap ; :
 nnoremap <leader>s :source ~/.vimrc<CR>
+nnoremap \ $
 " tab/shift+tab switch between windows
 nnoremap <Tab> <C-W>w
 nnoremap <S-Tab> <C-W>W

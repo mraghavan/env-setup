@@ -77,7 +77,7 @@ export EDITOR=vim
 function lx()
 {
     file=$(basename "${1}")
-    latex "${file}" && open ${file%.tex}.pdf
+    pdflatex "${file}" && open ${file%.tex}.pdf
 }
 
 ### GIT ###

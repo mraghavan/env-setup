@@ -74,6 +74,12 @@ set -o allexport
 
 export EDITOR=vim
 
+function lx()
+{
+    file=$(basename "${1}")
+    latex "${file}" && open ${file%.tex}.pdf
+}
+
 ### GIT ###
 
 function br()

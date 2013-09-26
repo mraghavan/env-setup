@@ -75,6 +75,7 @@ set wildignore+=.git/,.hg/,.svn/
 set wildignore+=.DS_Store,.localized
 set wildignore+=*.bmp,*.gif,*.jpg,*.png
 set wildignore+=*.swp
+set wildignore+=*.aux,*.dvi,*.pdf
 
 set foldmethod=syntax
 " Don't fold new file

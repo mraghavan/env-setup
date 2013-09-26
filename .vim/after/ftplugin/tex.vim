@@ -1,1 +1,2 @@
-command T ! lx %
+command! T ! lx %
+ab clr \color

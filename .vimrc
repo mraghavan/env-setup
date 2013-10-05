@@ -118,6 +118,9 @@ nnoremap <S-Tab> <C-W>W
 nnoremap <C-t> :tabnew
 nnoremap <C-l> :tabn<CR>
 nnoremap <C-h> :tabp<CR>
+" option+<,> half page up,down
+nnoremap ≤ <C-u>
+nnoremap ≥ <C-d>
 
 " ctrl+k toggle high visibility for the cursor
 nnoremap <C-K> :call HighlightNearCursor()<CR>

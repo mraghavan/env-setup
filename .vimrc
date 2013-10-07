@@ -109,6 +109,7 @@ inoremap ≠ <Del>
 " NOMRAL MODE
 " ,/ clear highlighting
 nnoremap <silent> <leader>/ :nohlsearch<CR>
+nnoremap <silent> <leader>. :q<CR>
 nnoremap ; :
 nnoremap <leader>s :source ~/.vimrc<CR>
 nnoremap \ $
@@ -121,6 +122,9 @@ nnoremap <C-h> :tabp<CR>
 " option+<,> half page up,down
 nnoremap ≤ <C-u>
 nnoremap ≥ <C-d>
+" option+[,] full page up,down
+nnoremap “ <C-b>
+nnoremap ‘ <C-f>
 
 " ctrl+k toggle high visibility for the cursor
 nnoremap <C-K> :call HighlightNearCursor()<CR>

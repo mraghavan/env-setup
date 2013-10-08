@@ -105,11 +105,17 @@ inoremap <C-l> <C-o>A
 inoremap <C-g> <C-o>e<C-o>a
 " alt+= delete the next character
 inoremap ≠ <Del>
+" alt+[,] backward/forward a word in insert mode
+inoremap “ <C-o>b
+inoremap ‘ <C-o>w
 
 " NOMRAL MODE
 " ,/ clear highlighting
 nnoremap <silent> <leader>/ :nohlsearch<CR>
-nnoremap <silent> <leader>. :q<CR>
+" ,. save and quit
+nnoremap <silent> <leader>. :x<CR>
+" ,m save
+nnoremap <silent> <leader>m :w<CR>
 nnoremap ; :
 nnoremap <leader>s :source ~/.vimrc<CR>
 nnoremap \ $
@@ -119,10 +125,10 @@ nnoremap <S-Tab> <C-W>W
 nnoremap <C-t> :tabnew
 nnoremap <C-l> :tabn<CR>
 nnoremap <C-h> :tabp<CR>
-" option+<,> half page up,down
+" alt+<,> half page up,down
 nnoremap ≤ <C-u>
 nnoremap ≥ <C-d>
-" option+[,] full page up,down
+" alt+[,] full page up,down
 nnoremap “ <C-b>
 nnoremap ‘ <C-f>
 

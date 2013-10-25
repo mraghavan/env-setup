@@ -33,29 +33,7 @@ set showtabline=2
 set tabpagemax=15
 
 " COLORS
-" Darker gray statusline
-highlight StatusLine cterm=reverse ctermfg=26 ctermbg=white
-highlight StatusLineNC ctermfg=8 ctermbg=white
-" Blue comments
-highlight Comment ctermfg=26
-" Brighter constants
-highlight Constant ctermfg=9
-" Brighter sky blue for identifiers
-highlight Identifier ctermfg=14
-" Autocomplete menu highlighting - blue menu, black/yellow selection
-highlight Pmenu ctermbg=26
-highlight PmenuSel ctermfg=black ctermbg=184
-" Coloring for folding
-highlight Folded ctermfg=15 ctermbg=8
-" Coloring for border
-highlight VertSplit ctermfg=black ctermbg=15
-" Coloring for menu
-highlight WildMenu ctermfg=black ctermbg=8
-" Coloring for tab line
-highlight TabLineFill ctermfg=8 ctermbg=black
-highlight TabLine ctermfg=white ctermbg=8 cterm=none
-highlight TabLineSel ctermfg=white ctermbg=26 cterm=none
-highlight Title ctermfg=white ctermbg=none
+colorscheme teal
 
 set laststatus=2
 set statusline=

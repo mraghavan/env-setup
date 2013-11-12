@@ -86,7 +86,7 @@ function br()
 {
     [[ -z "$1" ]] && echo "$0: missing argument" && exit 1
     git checkout -b "$1"
-    git branch --set-upstream "$1" master
+    git branch --track "$1" master
 }
 
 function land()

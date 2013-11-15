@@ -85,8 +85,8 @@ function lx()
 function br()
 {
     [[ -z "$1" ]] && echo "$0: missing argument" && exit 1
-    git checkout -b "$1"
     git branch --track "$1" master
+    git checkout "$1"
 }
 
 function land()

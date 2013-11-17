@@ -95,7 +95,7 @@ function land()
 	[[ "$BRANCH" == "master" ]] && echo "Can't land master" && return 1
 	echo "Landing branch $BRANCH"
 	echo "Switching to branch master..."
-	git co master 2>/dev/null || { git co master; return 1; }
+	git checkout master 2>/dev/null || { git checkout master; return 1; }
 	echo "Pulling remote changes..."
 	git pull || return 2
 	echo "Merging $BRANCH into master..."
@@ -103,5 +103,5 @@ function land()
 	echo "Pushing changes..."
 	git push || return 4
 	echo "Cleaning up branch $BRANCH..."
-	git br -d "$BRANCH"
+	git branch -d "$BRANCH"
 }

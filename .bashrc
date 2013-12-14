@@ -58,6 +58,7 @@ alias mv="mv -i"
 alias p="python3"
 alias rm="rm -i"
 alias v="vim -O"
+alias vlc="open -a VLC"
 
 alias cleandesk="osascript $ASCRIPT/cleandesk.scpt"
 alias cdown="mv ~/Downloads/* ~/.Trash"

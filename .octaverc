@@ -4,3 +4,4 @@ cd ~/octave
 edit mode sync
 edit home .
 edit editor 'vim > /dev/tty 2>&1 < /dev/tty %s'
+setenv("GNUTERM","X11")

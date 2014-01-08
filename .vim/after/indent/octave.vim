@@ -47,9 +47,9 @@ function GetOctaveIndent(lnum)
 
   " Double indent after the first ...
   " but not on subsequent lines
-  if prevline =~ '^\s*.*\.\.\.'
+  if prevline =~ '^\s*.*\.\.\.$'
     let plnum2 = prevnonblank(plnum - 1)
-    if (indent(a:lnum) < curind + 2 * &sw) && !(getline(plnum2) =~ '^\s*.*\.\.\.')
+    if (indent(a:lnum) < curind + 2 * &sw) && !(getline(plnum2) =~ '^\s*.*\.\.\.$')
       return curind + 2 * &sw
     endif
   endif

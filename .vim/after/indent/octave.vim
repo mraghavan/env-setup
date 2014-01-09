@@ -55,29 +55,17 @@ function GetOctaveIndent(lnum)
   endif
 
   " If the current line is a stop-block statement...
-  if getline(v:lnum) =~ '^\s*\(end\|else\|elseif\|case\|otherwise\|catch\)\>'
+  if getline(v:lnum) =~ '^\s*\(end\|else\|elseif\|case\|otherwise\|catch\|endfunction\|endif\|endfor\|endwhile\)\>'
     " See if this line does not follow the line right after an openblock
     if prevline =~ '^\s*\(for\|if\|else\|elseif\|case\|while\|switch\|try\|otherwise\|catch\)\>'
-    " See if the user has already dedented
-    elseif indent(v:lnum) > curind - &sw
-      " If not, recommend one dedent
-	let curind = curind - &sw
     else
-      " Otherwise, trust the user
-      return -1
+      let curind = curind - &sw
     endif
 "  endif
 
   " If the previous line opened a block
   elseif prevline =~ '^\s*\(for\|if\|else\|elseif\|case\|while\|switch\|try\|otherwise\|catch\|function\)\>'
-    " See if the user has already indented
-    if indent(v:lnum) < curind + &sw
-      "If not, recommend indent
-      let curind = curind + &sw
-    else
-      " Otherwise, trust the user
-      return -1
-    endif
+    let curind = curind + &sw
   endif
 
 

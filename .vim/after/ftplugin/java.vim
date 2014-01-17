@@ -33,5 +33,4 @@ if exists("t:put_file_name")
 	finish
 endif
 let t:put_file_name = 1
-autocmd BufNewFile * :normal ,fn
 source $HOME/.vim/after/ftplugin/c_java.vim

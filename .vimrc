@@ -59,6 +59,8 @@ set foldmethod=syntax
 " Don't fold new file
 set nofoldenable
 
+let g:tex_flavor = "latex"
+
 " Don't unfold while typing
 autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
 autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif

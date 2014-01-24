@@ -93,7 +93,7 @@ inoremap ‘ <C-o>w
 " ,/ clear highlighting
 nnoremap <silent> <leader>/ :nohlsearch<CR>
 " ,. save and quit
-nnoremap <silent> <leader>. :x<CR>
+nnoremap <silent> <leader>. :q<CR>
 " ,m save
 nnoremap <silent> <leader>m :w<CR>
 nnoremap ; :

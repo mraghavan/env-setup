@@ -6,13 +6,13 @@
 #define STARTLINE 02
 
 int main(int argc, char *argv[]) {
-  char *DEC = "%02d ", *OCT = "0%02o ", *HEX = "0x%02x ";
+  char *DEC = "%3d ", *OCT = "0%03o ", *HEX = "0x%02x ";
   char linenum = STARTLINE, *prog_name = argv[0];
   char *format = DEC;
   FILE *fp;
   int c, lnum;
   while (--argc > 0 && (*++argv)[0] == '-') {
-    while (c = *++(argv[0])) {
+    while ((c = *++(argv[0]))) {
       switch (c) {
         case 'l':
           linenum |= LNON;

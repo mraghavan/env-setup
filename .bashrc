@@ -78,7 +78,7 @@ export EDITOR=vim
 function lx()
 {
     file=$(basename "${1}")
-    pdflatex "${file}" && open ${file%.tex}.pdf
+    pdflatex -file-line-error -halt-on-error "${file}" && open ${file%.tex}.pdf
 }
 
 ### GIT ###

@@ -107,3 +107,5 @@ function land()
 	echo "Cleaning up branch $BRANCH..."
 	git branch -d "$BRANCH"
 }
+
+source ~/.bash_completion

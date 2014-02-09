@@ -108,4 +108,4 @@ function land()
 	git branch -d "$BRANCH"
 }
 
-source ~/.bash_completion
+[[ -e "${HOME}" ]] && source "${HOME}/.bash_completion"

@@ -1,0 +1,5 @@
+set completion-ignore-case on
+set show-all-if-ambiguous on
+
+"\C-]": menu-complete
+"\C-[": menu-complete-backward

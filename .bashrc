@@ -49,6 +49,7 @@ export CLASSPATH=.:$HOME/Developer/Java/jars/*:$HOME/Developer/Java/gjdb/bin
 ###########
 
 alias ..="cd .."
+alias ...="cd ../.."
 alias cp="cp -i"
 alias df="df -H"
 alias gcc="gcc -Wall"

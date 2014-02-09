@@ -3,6 +3,6 @@ PS2(".. ")
 cd ~/octave
 edit mode sync
 edit home .
-edit editor 'vim > /dev/tty 2>&1 < /dev/tty %s'
-default_save_options("-binary");
+EDITOR('vim > /dev/tty 2>&1 < /dev/tty %s')
+save_default_options("-binary");
 setenv("GNUTERM","X11")

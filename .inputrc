@@ -1,5 +1,6 @@
 set completion-ignore-case on
 set show-all-if-ambiguous on
+set skip-completed-text on
 
-"\C-]": menu-complete
-"\C-[": menu-complete-backward
+"\C-j": menu-complete
+"\C-k": menu-complete-backward

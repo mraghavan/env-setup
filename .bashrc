@@ -75,6 +75,8 @@ set -o vi
 set -o allexport
 
 export EDITOR=vim
+export HISTIGNORE="&:[ ]*:exit"
+export GREP_OPTIONS='--color=auto'
 
 function lx()
 {
@@ -108,4 +110,4 @@ function land()
 	git branch -d "$BRANCH"
 }
 
-[[ -e "${HOME}" ]] && source "${HOME}/.bash_completion"
+[[ -e "${HOME}/.bash_completion" ]] && source "${HOME}/.bash_completion"

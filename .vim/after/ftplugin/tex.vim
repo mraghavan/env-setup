@@ -1,7 +1,8 @@
 " Vim filetype plugin file
 " Language: LaTex
 
-command! T w | !lx %
+" command! T w | !lx %
+command! T w | !file=% && pdflatex -file-line-error -halt-on-error "${file}" && open ${file\%.tex}.pdf
 ab clr \color
 
 " NORMAL

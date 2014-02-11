@@ -1,6 +1,9 @@
+# readline configuration file
 set completion-ignore-case on
 set show-all-if-ambiguous on
+set expand-tilde on
 set skip-completed-text on
 
+# Ctrl+j and Ctrl+k cycle through autocomplete options
 "\C-j": menu-complete
 "\C-k": menu-complete-backward

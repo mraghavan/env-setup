@@ -1,1 +1,150 @@
-/Users/manishraghavan/.bash_completion
+#!/bin/bash
+# bash completion file
+
+function _init_completion_ ()
+{
+    IFS=$'\n'
+    cmd="${1##*/}"
+    word=${COMP_WORDS[COMP_CWORD]}
+    choices=($(compgen -f -- "${word}"))
+    COMPREPLY=()
+}
+
+function _omnicomplete_()
+{
+    local IFS cmd word choices
+    _init_completion_ "$@"
+    case "$cmd" in
+        v|vim)
+            # exclude files matched by xpattern
+            local xpattern='(.*\.pdf$|.*\.log$|.*\.jpeg$|.*\.jpg|.*\.class$|.*\.mp3$|.*\.mp4$|.*\.swp$)'
+            ;;
+        javac)
+            # include only files matched by ipattern and directories
+            local ipattern='.*\.java$'
+            ;;
+        p|python|python3)
+            local ipattern='.*\.py$'
+            ;;
+        gcc)
+            local ipattern='.*\.c$'
+            ;;
+        *)
+            ;;
+    esac
+
+    if [[ -n "${xpattern}" ]]
+    then
+        for f in "${choices[@]}"
+        do
+            if [[ ! "${f}" =~ $xpattern ]] || [[ -d "$(eval "echo "$f)" ]]
+            then
+                COMPREPLY=("${COMPREPLY[@]}" "${f}")
+            fi
+        done
+    elif [[ -n "${ipattern}" ]]
+    then
+        for f in "${choices[@]}"
+        do
+            if [[ "${f}" =~ $ipattern ]] || [[ -d "$(eval "echo "$f)" ]]
+            then
+                COMPREPLY=("${COMPREPLY[@]}" "${f}")
+            fi
+        done
+    else
+        COMPREPLY=$choices
+    fi
+}
+
+function _javacomplete_()
+{
+    local IFS cmd word choices
+    _init_completion_ "$@"
+    local classpattern=".*\.class$"
+    local jarpattern=".*\.jar$"
+    for f in "${choices[@]}"
+    do
+        if [[ "${f}" =~ $classpattern ]]
+        then
+            f=${f%.class}
+            COMPREPLY=("${COMPREPLY[@]}" "${f}")
+        elif [[ "${f}" =~ $jarpattern ]]
+        then
+            COMPREPLY=("${COMPREPLY[@]}" "${f}")
+        elif [[ -d "$(eval "echo "$f)" ]]
+        then
+            COMPREPLY=("${COMPREPLY[@]}" "${f}")
+        fi
+    done
+}
+
+function _sshcomplete_()
+{
+    local IFS cmd word choices
+    _init_completion_ "$@"
+    config="${HOME}/.ssh/config"
+    more_choices=($(compgen -W "$( [[ -e "${config}" ]] && cat "${config}" | grep 'Host ' | sed 's/^Host //g')" "${word}"))
+    for choice in "${more_choices[@]}"
+    do
+        COMPREPLY=("${COMPREPLY[@]}" "${choice}")
+    done
+}
+shopt -s direxpand
+
+function _scpcomplete_()
+{
+    local IFS cmd word choices
+    _init_completion_ "$@"
+    config="${HOME}/.ssh/config"
+    servers=()
+    users=()
+    serverpat='^HostName .*'
+    for line in $(cat "${config}" | grep '\(HostName\|User\)')
+    do
+        if [[ "${line}" =~ $serverpat ]]
+        then
+            servers=("${servers[@]}" "$(echo $line | sed 's/HostName //')")
+        else
+            users=("${users[@]}" "$(echo $line | sed 's/User //')@")
+        fi
+    done
+    if [[ "${word}" == "@" ]]
+    then
+        COMPREPLY=($(compgen -W "$(for s in "${servers[@]}"; do echo $s; done)"))
+        COMPREPLY=("${COMPREPLY[@]/#/@}")
+    elif [[ "${COMP_WORDS[COMP_CWORD-1]}" == "@" ]]
+    then
+        COMPREPLY=($(compgen -W "$(for s in "${servers[@]}"; do echo $s; done)" "${word}"))
+        COMPREPLY=("${COMPREPLY[@]/#/@}")
+    else
+        COMPREPLY=($(compgen -W "$(for u in "${users[@]}"; do echo $u; done)" "${word}"))
+    fi
+    for f in "${choices[@]}"
+    do
+        COMPREPLY=("${COMPREPLY[@]}" "${f}")
+    done
+
+}
+
+
+
+# only complete directories for cd and ls
+complete -d cd
+complete -d ls
+complete -o filenames ll
+
+complete -o filenames -F _javacomplete_ java
+complete -o filenames -F _omnicomplete_ javac
+complete -o filenames -F _omnicomplete_ gcc
+
+# python
+complete -o filenames -F _omnicomplete_ p
+complete -o filenames -F _omnicomplete_ python
+complete -o filenames -F _omnicomplete_ python3
+
+# vim
+complete -o filenames -F _omnicomplete_ v
+complete -o filenames -F _omnicomplete_ vim
+
+complete -F _sshcomplete_ ssh
+complete -o nospace -F _scpcomplete_ scp

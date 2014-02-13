@@ -14,7 +14,7 @@ bred="\[\033[1;31m\]"
 
 export PS1="$cyan\t: $purple\w $white"'$(git rev-parse &>/dev/null; \
 if [ $? -eq 0 ]; then \
-    echo -n "$(git diff --quiet ; \
+    echo -n "$(git diff --quiet &> /dev/null ; \
     if [ $? -eq 0 ]; then \
         echo "'$bgreen'($(git symbolic-ref --short -q HEAD))'$white'"; \
     else \

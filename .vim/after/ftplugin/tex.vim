@@ -3,7 +3,8 @@
 
 " command! T w | !lx %
 command! T w | !file=% && pdflatex -file-line-error -halt-on-error "${file}" && open ${file\%.tex}.pdf
-ab clr \color
+ab benum begin{enumerate}
+ab eenum end{enumerate}
 
 " NORMAL
 " comment out current line

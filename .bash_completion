@@ -131,7 +131,6 @@ function _scpcomplete_()
 # only complete directories for cd and ls
 complete -d cd
 complete -d ls
-complete -o filenames ll
 
 complete -o filenames -F _javacomplete_ java
 complete -o filenames -F _omnicomplete_ javac

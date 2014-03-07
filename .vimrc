@@ -1,15 +1,29 @@
-" /usr/share/vimrc
 " Configuration file for vim
+set nocompatible	" Use Vim defaults instead of 100% vi compatibility
+
+" vundle stuff
+" download: git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+" instructions: https://github.com/gmarik/Vundle.vim
+" use BundleInstall 'scrooloose/nerdtree'
+" and BundleInstall 'jlanzarotta/bufexplorer'
+" etc.
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+
+Bundle 'scrooloose/nerdtree'
+Bundle 'jlanzarotta/bufexplorer'
+
+filetype indent plugin on
 set fileformat=mac
 set modelines=0		" CVE-2007-2438
 
 " Normally we use vim-extensions. If you want true vi-compatibility
 " remove change the following statements
-set nocompatible	" Use Vim defaults instead of 100% vi compatibility
 set backspace=2		" more powerful backspacing
 
 syntax on
-filetype indent plugin on
 set tabstop=4		    " tab width is 4
 set shiftwidth=4
 set expandtab
@@ -26,6 +40,8 @@ set mouse=a             " use the mouse while holding down alt (option)
 set noerrorbells
 set visualbell
 set title				" title for terminal window
+set autochdir
+set autoread
 set wildmenu
 set lazyredraw
 set splitright
@@ -102,15 +118,25 @@ nnoremap \ $
 " tab/shift+tab switch between windows
 nnoremap <Tab> <C-W>w
 nnoremap <S-Tab> <C-W>W
-nnoremap <C-t> :tabnew
+nnoremap <C-t> :tabnew<SPACE>
 nnoremap <C-l> :tabn<CR>
 nnoremap <C-h> :tabp<CR>
-" alt+<,> half page up,down
-nnoremap ≤ <C-u>
-nnoremap ≥ <C-d>
-" alt+[,] full page up,down
-nnoremap “ <C-b>
-nnoremap ‘ <C-f>
+
+" up/down/j/k don't jump over wrap-around lines
+nnoremap <DOWN> gj
+nnoremap <UP> gk
+nnoremap j gj
+nnoremap k gk
+
+" pull up BufExplorer - useful for finding a buffer
+" among a bunch of tabs/splits
+nnoremap <C-b> <ESC>:BufExplorerVerticalSplit<CR>
+inoremap <C-b> <ESC>:BufExplorerVerticalSplit<CR>
+" reopen a buffer in a vsplit
+nnoremap <C-x> :buffers<CR>:vert sb<SPACE>
+inoremap <C-x> <ESC>:buffers<CR>:vert sb<SPACE>
+" reopen a buffer in a new tab
+nnoremap <C-c> :buffers<CR>:tabnew \| b<SPACE>
 
 " ctrl+k toggle high visibility for the cursor
 nnoremap <C-K> :call HighlightNearCursor()<CR>
@@ -121,6 +147,7 @@ nnoremap <silent> <leader>aw :call ScrollOther("left", "up")<CR>
 nnoremap <silent> <leader>as :call ScrollOther("left", "down")<CR>
 
 command Q execute "tabclose"
+command B buffers
 
 function ScrollOther(horiz, vert)
 	if a:horiz == "left"

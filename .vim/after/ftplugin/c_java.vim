@@ -13,8 +13,6 @@ nnoremap <silent> <leader>i >>Oif () {<esc>jo}<esc>kkf)i
 nnoremap <leader>c I//<esc>
 " uncomment current line
 nnoremap <leader>v ^2x
-" add comment at end of current line
-nnoremap <leader>b A<Tab><Tab><Tab><Tab>// 
 
 " VISUAL
 " ,i highlight lines and surround them with if

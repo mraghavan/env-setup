@@ -14,6 +14,8 @@ Bundle 'gmarik/vundle'
 
 Bundle 'scrooloose/nerdtree'
 Bundle 'jlanzarotta/bufexplorer'
+Bundle 'tpope/vim-surround'
+Bundle 'ervandew/supertab'
 
 filetype indent plugin on
 set fileformat=mac

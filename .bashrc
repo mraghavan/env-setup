@@ -3,25 +3,100 @@ if [ -z "$PS1" ]; then
    return
 fi
 
-green="\[\033[0;32m\]"
-cyan="\[\033[0;36m\]"
-purple="\[\033[0;35m\]"
-white="\[\033[00m\]"
-bgreen="\[\033[1;32m\]"
-bred="\[\033[1;31m\]"
+w_on_gr="\[\e[38;5;231;48;5;237m\]"
+w_on_purple="\[\e[38;5;231;48;5;57m\]"
+gr_on_purple="\[\e[38;5;237;48;5;57m\]"
+grey="\[\e[38;5;237m\]"
+teal="\[\e[38;5;23m\]"
+bgreen="\[\e[1;32;48;5;237m\]"
+byellow="\[\e[1;33;48;5;237m\]"
+bred="\[\e[1;31;48;5;237m\]"
+
+_git_untracked="untracked"
+_git_clean="clean"
+_git_uncommitted="uncommitted"
+_git_staged="staged"
+
+# Reset
+color_off='\[\e[0m\]'
+
+thin_arrow=$'\u276f'
 
 #PS1="$cyan\t: $green\w \$ $white"
 
-export PS1="$cyan\t: $purple\w $white"'$(git rev-parse &>/dev/null; \
-if [ $? -eq 0 ]; then \
-    echo -n "$(git diff --quiet &> /dev/null ; \
-    if [ $? -eq 0 ]; then \
-        echo "'$bgreen'($(git symbolic-ref --short -q HEAD))'$white'"; \
+# replace '/' with ' ${thin_arrow} '
+function short_pwd()
+{
+    echo $PWD | sed 's:/Users/manishraghavan:~:' | sed 's:\([^/]*/\).*\([^/]*/[^/]*/[^/]*/[^/]*\):\1...\2:' | sed 's:/: '${thin_arrow}' :g'
+}
+
+function _update_prompt()
+{
+    _in_git=$(git rev-parse &>/dev/null; echo $?)
+    if [[ $_in_git == 0 ]]
+    then
+        if git diff --quiet &>/dev/null
+        then
+            if git diff-index --quiet --cached HEAD
+            then
+                _git_status=$_git_clean
+                _git_staged_status=""
+            else
+                _git_status=$_git_staged
+                _git_staged_status="~ "
+            fi
+        else
+            _git_status=$_git_uncommitted
+            if git diff-index --quiet --cached HEAD
+            then
+                _git_staged_status=""
+            else
+                _git_staged_status="~ "
+            fi
+        fi
+    fi
+    _git_ut_status=$(get_git_ut_status)
+    _git_branch=$(get_git_branch)
+}
+
+function get_git_ut_status()
+{
+    if [[ $_in_git == 0 ]]
+    then
+        # git ls-files only looks further down the subdirectory
+        # untracked files need to start from root dir
+        untracked="$(cd "$(git rev-parse --show-toplevel)"; git ls-files --exclude-standard --others --directory)"
+        # untracked="$(git status | grep '^# Untracked')"
+        if [[ -n "${untracked}" ]]
+        then
+            echo ' +'
+        fi
+    fi
+}
+
+function get_git_branch()
+{
+    if [[ $_in_git == 0 ]]
+    then
+        git symbolic-ref --short -q HEAD
+    fi
+}
+
+PROMPT_COMMAND=_update_prompt
+
+export PS1="${w_on_gr} \t ${thin_arrow}${w_on_purple} "'$(short_pwd) '${gr_on_purple}${thin_arrow}'$(\
+if [ $_in_git -eq 0 ]; then \
+    echo -n "$(\
+    if [[ "${_git_status}" == "${_git_clean}" ]]; then \
+        echo "'$bgreen' ("${_git_branch}${_git_ut_status}") '${thin_arrow}'"; \
+    elif [[ "${_git_status}" == "${_git_staged}" ]]
+    then
+        echo "'$byellow' ["${_git_staged_status}${_git_branch}${_git_ut_status}"] '${thin_arrow}'"; \
     else \
-        echo "'$bred'{$(git symbolic-ref --short -q HEAD)}'$white'" ;\
-    fi) " ; \
+        echo "'$bred' {"${_git_staged_status}${_git_branch}${_git_ut_status}"} '${thin_arrow}'" ;\
+    fi)" ; \
 fi ; \
-echo "'$purple'\$ '$white'")'
+echo "'${color_off}${teal}' \$'${color_off}' ")'
 
 # Make bash check its window size after a process completes
 shopt -s checkwinsize

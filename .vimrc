@@ -16,8 +16,10 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'jlanzarotta/bufexplorer'
 Bundle 'tpope/vim-surround'
 Bundle 'ervandew/supertab'
+Bundle 'https://github.com/vim-scripts/TaskList.vim'
 
 filetype indent plugin on
+
 set fileformat=mac
 set modelines=0		" CVE-2007-2438
 
@@ -130,10 +132,12 @@ nnoremap <UP> gk
 nnoremap j gj
 nnoremap k gk
 
+" open NERDTree
+nnoremap <C-n> :NERDTreeToggle<CR>
 " pull up BufExplorer - useful for finding a buffer
 " among a bunch of tabs/splits
-nnoremap <C-b> <ESC>:BufExplorerVerticalSplit<CR>
-inoremap <C-b> <ESC>:BufExplorerVerticalSplit<CR>
+nnoremap <C-a> <ESC>:BufExplorerVerticalSplit<CR>
+inoremap <C-a> <ESC>:BufExplorerVerticalSplit<CR>
 " reopen a buffer in a vsplit
 nnoremap <C-x> :buffers<CR>:vert sb<SPACE>
 inoremap <C-x> <ESC>:buffers<CR>:vert sb<SPACE>

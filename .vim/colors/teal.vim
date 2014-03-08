@@ -1,3 +1,4 @@
+highlight Normal ctermbg=0 ctermfg=7 guibg=#202020 guifg=#d0d0d0 gui=none
 highlight StatusLine cterm=reverse ctermfg=57 ctermbg=white
 highlight StatusLineNC cterm=none ctermfg=23 ctermbg=none
 highlight Comment ctermfg=125
@@ -18,3 +19,5 @@ highlight TabLineFill ctermfg=23
 highlight TabLine ctermfg=black ctermbg=23 cterm=none
 highlight TabLineSel ctermfg=white ctermbg=57 cterm=none
 highlight Title ctermfg=white ctermbg=none
+
+let g:colors_name="teal"

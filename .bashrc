@@ -3,14 +3,16 @@ if [ -z "$PS1" ]; then
    return
 fi
 
-w_on_gr="\[\e[38;5;231;48;5;237m\]"
+gr_on_r="\[\e[38;5;234;48;5;88m\]"
+bgr_on_r="\[\e[1;38;5;234;48;5;88m\]"
 w_on_purple="\[\e[38;5;231;48;5;57m\]"
-gr_on_purple="\[\e[38;5;237;48;5;57m\]"
+r_on_purple="\[\e[1;38;5;88;48;5;57m\]"
 grey="\[\e[38;5;237m\]"
 teal="\[\e[38;5;23m\]"
 bgreen="\[\e[1;32;48;5;237m\]"
 byellow="\[\e[1;33;48;5;237m\]"
 bred="\[\e[1;31;48;5;237m\]"
+nbg="\[\e[49m\]"
 
 _git_untracked="untracked"
 _git_clean="clean"
@@ -27,7 +29,7 @@ thin_arrow=$'\u276f'
 # replace '/' with ' ${thin_arrow} '
 function short_pwd()
 {
-    echo $PWD | sed 's:/Users/manishraghavan:~:' | sed 's:\([^/]*/\).*\([^/]*/[^/]*/[^/]*/[^/]*\):\1...\2:' | sed 's:/: '${thin_arrow}' :g'
+    echo $PWD | sed 's:/Users/manishraghavan:~:' | sed 's:\([^/]*/\).*\([^/]*/[^/]*/[^/]*/[^/]*\):\1...\2:'
 }
 
 function _update_prompt()
@@ -57,6 +59,8 @@ function _update_prompt()
     fi
     _git_ut_status=$(get_git_ut_status)
     _git_branch=$(get_git_branch)
+    _s_pwd=$(short_pwd)
+    # echo $_s_pwd
 }
 
 function get_git_ut_status()
@@ -84,7 +88,10 @@ function get_git_branch()
 
 PROMPT_COMMAND=_update_prompt
 
-export PS1="${w_on_gr} \t ${thin_arrow}${w_on_purple} "'$(short_pwd) '${gr_on_purple}${thin_arrow}'$(\
+export PS1="${gr_on_r} \t ${bgr_on_r}${thin_arrow}${w_on_purple} "'$(O_IFS=$IFS; IFS="/"; \
+for dir in $_s_pwd; do \
+    echo -n $dir; echo -n " '${r_on_purple}${thin_arrow}${w_on_purple}' "; \
+done; IFS=$O_IFS)'${nbg}${grey}'$(\
 if [ $_in_git -eq 0 ]; then \
     echo -n "$(\
     if [[ "${_git_status}" == "${_git_clean}" ]]; then \
@@ -96,7 +103,7 @@ if [ $_in_git -eq 0 ]; then \
         echo "'$bred' {"${_git_staged_status}${_git_branch}${_git_ut_status}"} '${thin_arrow}'" ;\
     fi)" ; \
 fi ; \
-echo "'${color_off}${teal}' \$'${color_off}' ")'
+echo "'${nbg}' \$'${color_off}' ")'
 
 # Make bash check its window size after a process completes
 shopt -s checkwinsize

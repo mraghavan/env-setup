@@ -3,8 +3,7 @@ if [ -z "$PS1" ]; then
    return
 fi
 
-gr_on_r="\[\e[38;5;234;48;5;88m\]"
-bgr_on_r="\[\e[1;38;5;234;48;5;88m\]"
+gr_on_r="\[\e[1;38;5;234;48;5;88m\]"
 w_on_purple="\[\e[38;5;231;48;5;57m\]"
 r_on_purple="\[\e[1;38;5;88;48;5;57m\]"
 grey="\[\e[38;5;237m\]"
@@ -88,7 +87,7 @@ function get_git_branch()
 
 PROMPT_COMMAND=_update_prompt
 
-export PS1="${gr_on_r} \t ${bgr_on_r}${thin_arrow}${w_on_purple} "'$(O_IFS=$IFS; IFS="/"; \
+export PS1="${gr_on_r} \t ${thin_arrow}${w_on_purple} "'$(O_IFS=$IFS; IFS="/"; \
 for dir in $_s_pwd; do \
     echo -n $dir; echo -n " '${r_on_purple}${thin_arrow}${w_on_purple}' "; \
 done; IFS=$O_IFS)'${nbg}${grey}'$(\

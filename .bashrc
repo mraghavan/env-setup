@@ -172,6 +172,7 @@ export GREP_OPTIONS='--color=auto'
 
 function lx()
 {
+    [[ -z "${1}" ]] && return
     file=$(basename "${1}")
     pdflatex -file-line-error -halt-on-error "${file}" && open ${file%.tex}.pdf
 }

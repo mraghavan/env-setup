@@ -1,5 +1,5 @@
 " Configuration file for vim
-set nocompatible	" Use Vim defaults instead of 100% vi compatibility
+set nocompatible    " Use Vim defaults instead of 100% vi compatibility
 
 " vundle stuff
 " download: git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
@@ -17,33 +17,67 @@ Bundle 'jlanzarotta/bufexplorer'
 Bundle 'tpope/vim-surround'
 Bundle 'ervandew/supertab'
 Bundle 'https://github.com/vim-scripts/TaskList.vim'
+Bundle 'bling/vim-airline'
+Bundle 'scrooloose/syntastic'
 
 filetype indent plugin on
 
+" airline stuff
+let g:airline_theme = 'turtle'
+let g:airline_left_sep = '»'
+let g:airline_right_sep = '«'
+call airline#parts#define_function('path', 'ShortPath')
+call airline#parts#define_function('git', 'GitInfo')
+let g:airline_section_b = airline#section#create(['path'])
+let g:airline_section_y = airline#section#create(['git'])
+let g:airline_section_z = "%3p%% BN:%2n LN:%#__accent_bold#%4l%#__restore__# C:%3c"
+
+" returns the path with all but the first 2 and last 3 directories in the path
+" replaced by ...
+function ShortPath()
+    let full_path = expand('%:p:h')
+    let full_path = substitute(full_path, $HOME, '~', '')
+    let full_path = substitute(full_path, '\([^/]*/[^/]*/\).*\([^/]*/[^/]*/[^/]*/[^/]*\)', '\1...\2', 'g')
+    return full_path
+endfunction
+
+function GitInfo()
+    let cmd = 'git rev-parse &>/dev/null && echo -n $(git symbolic-ref --short -q HEAD)'
+    let result = system(cmd)
+    if result == ''
+        return ''
+    endif
+    return result
+endfunction
+
+let g:syntastic_mode_map = { 'mode': 'passive',
+                               \ 'active_filetypes': ['ruby', 'php'],
+                               \ 'passive_filetypes': ['puppet'] }
+
 set fileformat=mac
-set modelines=0		" CVE-2007-2438
+set modelines=0     " CVE-2007-2438
 
 " Normally we use vim-extensions. If you want true vi-compatibility
 " remove change the following statements
-set backspace=2		" more powerful backspacing
+set backspace=2     " more powerful backspacing
 
 syntax on
-set tabstop=4		    " tab width is 4
+set tabstop=4           " tab width is 4
 set shiftwidth=4
 set expandtab
-set number		        " line numbers
-set hidden	            " hide buffers, don't close - useful for autocomplete
-set hlsearch	    	" highlight search results
-set incsearch		    " show search matches as you type
+set number              " line numbers
+set hidden              " hide buffers, don't close - useful for autocomplete
+set hlsearch            " highlight search results
+set incsearch           " show search matches as you type
 set autoindent
 set smartindent
 set undolevels=1000
-set smartcase		    " ignore case/don't ignore for searches
-set pastetoggle=<F2>	" press F2 when pasting text in insert mode using Command-v
+set smartcase           " ignore case/don't ignore for searches
+set pastetoggle=<F2>    " press F2 when pasting text in insert mode using Command-v
 set mouse=a             " use the mouse while holding down alt (option)
 set noerrorbells
 set visualbell
-set title				" title for terminal window
+set title               " title for terminal window
 set autochdir
 set autoread
 set wildmenu
@@ -55,16 +89,17 @@ set tabpagemax=15
 " COLORS
 colorscheme teal
 
+" Overridden by vim-airline
 set laststatus=2
 set statusline=
-set statusline+=\                 	        " start of status
-set statusline+=%-20.80f					" file name
-set statusline+=\ [%l/%L,			        " line #/total
-set statusline+=%-(%c%)]			        " column #
-set statusline+=%-4.(%m%)					" modified [+]
-set statusline+=%-5.(%r%)					" read only [RO]
-set statusline+=%-5.(%y%)					" file type [vim]
-set statusline+=%=							" right align
+set statusline+=\                           " start of status
+set statusline+=%-20.80f                    " file name
+set statusline+=\ [%l/%L,                   " line #/total
+set statusline+=%-(%c%)]                    " column #
+set statusline+=%-4.(%m%)                   " modified [+]
+set statusline+=%-5.(%r%)                   " read only [RO]
+set statusline+=%-5.(%y%)                   " file type [vim]
+set statusline+=%=                          " right align
 set statusline+=%<%P\ 
 
 set wildignore=
@@ -138,6 +173,8 @@ nnoremap <C-n> :NERDTreeToggle<CR>
 " among a bunch of tabs/splits
 nnoremap <C-a> <ESC>:BufExplorerVerticalSplit<CR>
 inoremap <C-a> <ESC>:BufExplorerVerticalSplit<CR>
+command S w | SyntasticCheck
+
 " reopen a buffer in a vsplit
 nnoremap <C-x> :buffers<CR>:vert sb<SPACE>
 inoremap <C-x> <ESC>:buffers<CR>:vert sb<SPACE>
@@ -156,19 +193,19 @@ command Q execute "tabclose"
 command B buffers
 
 function ScrollOther(horiz, vert)
-	if a:horiz == "left"
-		let hmove = "W"
-		let revmove = "w"
-	elseif a:horiz == "right"
-		let hmove = "w"
-		let revmove = "W"
-	endif
-	if a:vert == "up"
-		let vmove = "\<C-U>"
-	elseif a:vert == "down"
-		let vmove = "\<C-D>"
-	endif
-	exec "normal \<C-W>" . hmove . vmove . "\<C-W>" . revmove
+    if a:horiz == "left"
+        let hmove = "W"
+        let revmove = "w"
+    elseif a:horiz == "right"
+        let hmove = "w"
+        let revmove = "W"
+    endif
+    if a:vert == "up"
+        let vmove = "\<C-U>"
+    elseif a:vert == "down"
+        let vmove = "\<C-D>"
+    endif
+    exec "normal \<C-W>" . hmove . vmove . "\<C-W>" . revmove
 endfunction
 
 function HighlightNearCursor()

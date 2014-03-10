@@ -10,15 +10,17 @@ r_on_purple="\[\e[1;38;5;88;48;5;57m\]"
 grey="\[\e[38;5;237m\]"
 teal="\[\e[38;5;23m\]"
 # bgreen="\[\e[38;5;234;42m\]"
-bgreen="\[\e[38;5;234;48;5;34m\]"
+# bgreen="\[\e[38;5;234;48;5;34m\]"
 bgreen="\[\e[38;5;232;48;5;28m\]"
-byellow="\[\e[38;5;234;43m\]"
-byellow="\[\e[38;5;232;48;5;220m\]"
+byellow="\[\e[38;5;232;43m\]"
+# byellow="\[\e[38;5;232;48;5;220m\]"
 # bred="\[\e[38;5;234;41m\]"
-bred="\[\e[1;38;5;233;48;5;160m\]"
+# bred="\[\e[1;38;5;233;48;5;160m\]"
 bred="\[\e[1;38;5;232;48;5;160m\]"
 nfg="\[\e[30m\]"
 nbg="\[\e[49m\]"
+white="\[\e[1;39m\]"
+black="\[\e[38;5;232m\]"
 
 _git_untracked="untracked"
 _git_clean="clean"
@@ -103,12 +105,12 @@ done; IFS=$O_IFS)'${gr_on_red}'$(\
 if [ $_in_git -eq 0 ]; then \
     echo -n "$(\
     if [[ "${_git_status}" == "${_git_clean}" ]]; then \
-        echo "'$bgreen' ("${_git_branch}${_git_ut_status}") '${thin_arrow}'"; \
+        echo "'$bgreen' ("${_git_branch}"'${white}'"${_git_ut_status}"'${black}') '${thin_arrow}'"; \
     elif [[ "${_git_status}" == "${_git_staged}" ]]
     then
-        echo "'$byellow' ["${_git_staged_status}${_git_branch}${_git_ut_status}"] '${thin_arrow}'"; \
+        echo "'$byellow' ["${_git_staged_status}${_git_branch}"'${white}'"${_git_ut_status}"'${black}'] '${thin_arrow}'"; \
     else \
-        echo "'$bred' {"${_git_staged_status}${_git_branch}${_git_ut_status}"} '${thin_arrow}'" ;\
+        echo "'$bred' {"${_git_staged_status}${_git_branch}"'${white}'"${_git_ut_status}"'${black}'} '${thin_arrow}'" ;\
     fi)" ; \
 fi ; \
 echo "'${nfg}$(tput rev)' \$'${color_off}' ")'

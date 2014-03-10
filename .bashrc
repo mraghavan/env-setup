@@ -123,10 +123,10 @@ if [ "$TERM_PROGRAM" == "Apple_Terminal" ] && [ -z "$INSIDE_EMACS" ]; then
         # Identify the directory using a "file:" scheme URL,
         # including the host name to disambiguate local vs.
         # remote connections. Percent-escape spaces.
-	local SEARCH=' '
-	local REPLACE='%20'
-	local PWD_URL="file://$HOSTNAME${PWD//$SEARCH/$REPLACE}"
-	printf '\e]7;%s\a' "$PWD_URL"
+    local SEARCH=' '
+    local REPLACE='%20'
+    local PWD_URL="file://$HOSTNAME${PWD//$SEARCH/$REPLACE}"
+    printf '\e]7;%s\a' "$PWD_URL"
     }
     PROMPT_COMMAND="update_terminal_cwd; $PROMPT_COMMAND"
 fi
@@ -188,19 +188,19 @@ function br()
 
 function land()
 {
-	[[ -z "$1" ]] && BRANCH=$(git rev-parse --abbrev-ref HEAD) || BRANCH="$1"
-	[[ "$BRANCH" == "master" ]] && echo "Can't land master" && return 1
-	echo "Landing branch $BRANCH"
-	echo "Switching to branch master..."
-	git checkout master 2>/dev/null || { git checkout master; return 1; }
-	echo "Pulling remote changes..."
-	git pull || return 2
-	echo "Merging $BRANCH into master..."
-	git merge "$BRANCH" || return 3
-	echo "Pushing changes..."
-	git push || return 4
-	echo "Cleaning up branch $BRANCH..."
-	git branch -d "$BRANCH"
+    [[ -z "$1" ]] && BRANCH=$(git rev-parse --abbrev-ref HEAD) || BRANCH="$1"
+    [[ "$BRANCH" == "master" ]] && echo "Can't land master" && return 1
+    echo "Landing branch $BRANCH"
+    echo "Switching to branch master..."
+    git checkout master 2>/dev/null || { git checkout master; return 1; }
+    echo "Pulling remote changes..."
+    git pull || return 2
+    echo "Merging $BRANCH into master..."
+    git merge "$BRANCH" || return 3
+    echo "Pushing changes..."
+    git push || return 4
+    echo "Cleaning up branch $BRANCH..."
+    git branch -d "$BRANCH"
 }
 
 [[ -e "${HOME}/.bash_completion" ]] && source "${HOME}/.bash_completion"

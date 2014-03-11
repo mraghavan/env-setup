@@ -28,7 +28,7 @@ let g:airline_left_sep = '»'
 let g:airline_right_sep = '«'
 call airline#parts#define_function('path', 'ShortPath')
 call airline#parts#define_function('git', 'GitInfo')
-let g:airline_section_b = airline#section#create(['path'])
+let g:airline_section_b = '%<' . airline#section#create(['path'])
 let g:airline_section_y = airline#section#create(['git'])
 let g:airline_section_z = "%3p%% BN:%2n LN:%#__accent_bold#%4l%#__restore__# C:%3c"
 
@@ -78,7 +78,7 @@ set mouse=a             " use the mouse while holding down alt (option)
 set noerrorbells
 set visualbell
 set title               " title for terminal window
-set autochdir
+" set autochdir
 set autoread
 set wildmenu
 set lazyredraw
@@ -87,7 +87,7 @@ set showtabline=2
 set tabpagemax=15
 
 " COLORS
-colorscheme teal
+colorscheme teal_airline
 
 " Overridden by vim-airline
 set laststatus=2

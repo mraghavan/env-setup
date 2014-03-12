@@ -15,10 +15,27 @@ Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jlanzarotta/bufexplorer'
 Bundle 'tpope/vim-surround'
-Bundle 'ervandew/supertab'
 Bundle 'https://github.com/vim-scripts/TaskList.vim'
 Bundle 'bling/vim-airline'
 Bundle 'scrooloose/syntastic'
+Bundle 'Shougo/neocomplcache.vim'
+Bundle 'jiangmiao/auto-pairs'
+Bundle 'scrooloose/nerdcommenter'
+
+" neocomplcache stuff
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_enable_auto_select = 1
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<TAB>"
+
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+endfunction
+
 
 filetype indent plugin on
 
@@ -47,7 +64,7 @@ function GitInfo()
     if result == ''
         return ''
     endif
-    return result
+    return '('.result.')'
 endfunction
 
 let g:syntastic_mode_map = { 'mode': 'passive',

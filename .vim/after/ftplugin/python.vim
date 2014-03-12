@@ -17,11 +17,5 @@ nnoremap <silent> <leader>f >>Ofor :<C-o>i
 vnoremap <silent> <leader>i >`<Oif :<esc><<f:i
 vnoremap <silent> <leader>f >`<Ofor :<esc><<f:i
 
-" comment out current line
-nnoremap <leader>c I# <esc>
-" uncomment current line
-nnoremap <leader>v ^2x
-" add comment at end of current line
-nnoremap <leader>b A<Tab><Tab><Tab><Tab># 
 
 set foldmethod=indent

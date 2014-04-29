@@ -17,14 +17,14 @@ function _omnicomplete_()
     case "$cmd" in
         v|vim)
             # exclude files matched by xpattern
-            local xpattern='(.*\.pdf$|.*\.log$|.*\.jpeg$|.*\.jpg|.*\.class$|.*\.mp3$|.*\.mp4$|.*\.swp$)'
+            local xpattern='(.*\.pdf$|.*\.log$|.*\.jpeg$|.*\.jpg|.*\.class$|.*\.mp3$|.*\.mp4$|.*\.swp$|.*\.pyc)'
             ;;
         javac)
             # include only files matched by ipattern and directories
             local ipattern='.*\.java$'
             ;;
         p|python|python3)
-            local ipattern='.*\.py$'
+            local xpattern='.*\.pyc$'
             ;;
         gcc)
             local ipattern='.*\.c$'

@@ -5,6 +5,7 @@ fi
 
 gr_on_teal="\[\e[1;38;5;234;48;5;23m\]"
 gr_on_red="\[\e[1;38;5;234;48;5;88m\]"
+purple="\[\e[1;38;5;57m\]"
 w_on_purple="\[\e[38;5;231;48;5;57m\]"
 r_on_purple="\[\e[1;38;5;88;48;5;57m\]"
 grey="\[\e[38;5;237m\]"
@@ -12,11 +13,14 @@ teal="\[\e[38;5;23m\]"
 # bgreen="\[\e[38;5;234;42m\]"
 # bgreen="\[\e[38;5;234;48;5;34m\]"
 bgreen="\[\e[38;5;232;48;5;28m\]"
+bgreen_rev="\[\e[38;5;28m\]"
 byellow="\[\e[38;5;232;43m\]"
+byellow_rev="\[\e[33m\]"
 # byellow="\[\e[38;5;232;48;5;220m\]"
 # bred="\[\e[38;5;234;41m\]"
 # bred="\[\e[1;38;5;233;48;5;160m\]"
 bred="\[\e[1;38;5;232;48;5;160m\]"
+bred_rev="\[\e[1;38;5;160m\]"
 nfg="\[\e[30m\]"
 nbg="\[\e[49m\]"
 white="\[\e[1;39m\]"
@@ -28,7 +32,7 @@ _git_uncommitted="uncommitted"
 _git_staged="staged"
 
 # Reset
-color_off='\[\e[0m\]'
+color_off="\[\e[0m\]"
 
 # unicode
 # thin_arrow=$'\u276f'
@@ -98,22 +102,27 @@ function get_git_branch()
 
 PROMPT_COMMAND=_update_prompt
 
-export PS1="${gr_on_teal} \t ${thin_arrow}${w_on_purple} "'$(O_IFS=$IFS; IFS="/"; \
+export PS1="${gr_on_teal} \t ${thin_arrow}${w_on_purple} "'$(IFS=";"; \
 for dir in $_s_pwd; do \
     echo -n $dir; echo -n " '${r_on_purple}${thin_arrow}${w_on_purple}' "; \
-done; IFS=$O_IFS)'${gr_on_red}'$(\
+done;)'${gr_on_red}'$(\
 if [ $_in_git -eq 0 ]; then \
     echo -n "$(\
     if [[ "${_git_status}" == "${_git_clean}" ]]; then \
-        echo "'$bgreen' ("${_git_branch}"'${white}'"${_git_ut_status}"'${black}') '${thin_arrow}'"; \
+        echo -n "'$bgreen' ("${_git_branch}"'${white}'"${_git_ut_status}"'${black}') '${thin_arrow}'"; \
+        echo "'$bgreen_rev'"; \
     elif [[ "${_git_status}" == "${_git_staged}" ]]
     then
-        echo "'$byellow' ["${_git_staged_status}${_git_branch}"'${white}'"${_git_ut_status}"'${black}'] '${thin_arrow}'"; \
+        echo -n "'$byellow' ["${_git_staged_status}${_git_branch}"'${white}'"${_git_ut_status}"'${black}'] '${thin_arrow}'"; \
+        echo "'$byellow_rev'"; \
     else \
-        echo "'$bred' {"${_git_staged_status}${_git_branch}"'${white}'"${_git_ut_status}"'${black}'} '${thin_arrow}'" ;\
+        echo -n "'$bred' {"${_git_staged_status}${_git_branch}"'${white}'"${_git_ut_status}"'${black}'} '${thin_arrow}'" ;\
+        echo "'$bred_rev'"; \
     fi)" ; \
+else \
+    echo -n "'${purple}'";
 fi ; \
-echo "'${nfg}$(tput rev)' \$'${color_off}' ")'
+echo "'${nbg}' \$'${color_off}' ")'
 
 # Make bash check its window size after a process completes
 shopt -s checkwinsize

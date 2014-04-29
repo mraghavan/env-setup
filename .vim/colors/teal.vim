@@ -3,6 +3,7 @@ highlight StatusLine cterm=reverse ctermfg=57 ctermbg=white
 highlight StatusLineNC cterm=none ctermfg=23 ctermbg=none
 highlight Comment ctermfg=125
 highlight Constant ctermfg=34
+highlight Error ctermfg=15 ctermbg=160
 highlight Identifier ctermfg=26
 highlight Folded ctermfg=15 ctermbg=8
 highlight LineNr ctermfg=8

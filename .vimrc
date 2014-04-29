@@ -16,56 +16,17 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'jlanzarotta/bufexplorer'
 Bundle 'tpope/vim-surround'
 Bundle 'https://github.com/vim-scripts/TaskList.vim'
-Bundle 'bling/vim-airline'
 Bundle 'scrooloose/syntastic'
-Bundle 'Shougo/neocomplcache.vim'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'scrooloose/nerdcommenter'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'ervandew/supertab'
 
-" neocomplcache stuff
-let g:acp_enableAtStartup = 0
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_enable_auto_select = 1
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<TAB>"
-
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-endfunction
+let g:Powerline_theme = 'custom'
+let g:Powerline_colorscheme = 'turtle2'
 
 
 filetype indent plugin on
-
-" airline stuff
-let g:airline_theme = 'turtle'
-let g:airline_left_sep = '»'
-let g:airline_right_sep = '«'
-call airline#parts#define_function('path', 'ShortPath')
-call airline#parts#define_function('git', 'GitInfo')
-let g:airline_section_b = '%<' . airline#section#create(['path'])
-let g:airline_section_y = airline#section#create(['git'])
-let g:airline_section_z = "%3p%% BN:%2n LN:%#__accent_bold#%4l%#__restore__# C:%3c"
-
-" returns the path with all but the first 2 and last 3 directories in the path
-" replaced by ...
-function ShortPath()
-    let full_path = expand('%:p:h')
-    let full_path = substitute(full_path, $HOME, '~', '')
-    let full_path = substitute(full_path, '\([^/]*/[^/]*/\).*\([^/]*/[^/]*/[^/]*/[^/]*\)', '\1...\2', 'g')
-    return full_path
-endfunction
-
-function GitInfo()
-    let cmd = 'git rev-parse &>/dev/null && echo -n $(git symbolic-ref --short -q HEAD)'
-    let result = system(cmd)
-    if result == ''
-        return ''
-    endif
-    return '('.result.')'
-endfunction
 
 let g:syntastic_mode_map = { 'mode': 'passive',
                                \ 'active_filetypes': ['ruby', 'php'],
@@ -170,6 +131,8 @@ nnoremap <silent> <leader>. :q<CR>
 nnoremap <silent> <leader>m :w<CR>
 nnoremap ; :
 nnoremap <leader>s :source ~/.vimrc<CR>
+" wrap text
+nnoremap <silent> <leader>g :call WrapPar()<CR>
 nnoremap \ $
 " tab/shift+tab switch between windows
 nnoremap <Tab> <C-W>w

@@ -4,8 +4,8 @@
 set expandtab
 set smarttab
 
-" ctrl+[yf] create if/for statement
-inoremap <C-y> if :<C-o>i
+" ctrl+[bf] create if/for statement
+inoremap <C-b> if :<C-o>i
 inoremap <C-f> for :<C-o>i
 " Prevent auto unindent for comments
 inoremap # X<C-h>#

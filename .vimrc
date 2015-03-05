@@ -1,3 +1,7 @@
+if has('neovim')
+    let s:python_host_init = 'python -c "import neovim; neovim.start_host()"'
+    let &initpython = s:python_host_init
+endif
 " Configuration file for vim
 set nocompatible    " Use Vim defaults instead of 100% vi compatibility
 
@@ -20,19 +24,25 @@ Bundle 'scrooloose/syntastic'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'ervandew/supertab'
+Bundle 'Valloric/YouCompleteMe'
+"Bundle 'ervandew/supertab'
 
 let g:Powerline_theme = 'custom'
 let g:Powerline_colorscheme = 'turtle2'
 
+let g:ycm_always_populate_location_list = 0
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_filetype_blacklist = { 'tex' : 1 }
+let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 
-filetype indent plugin on
 
 let g:syntastic_mode_map = { 'mode': 'passive',
                                \ 'active_filetypes': ['ruby', 'php'],
                                \ 'passive_filetypes': ['puppet'] }
 
-set fileformat=mac
+filetype indent plugin on
+
 set modelines=0     " CVE-2007-2438
 
 " Normally we use vim-extensions. If you want true vi-compatibility
@@ -112,23 +122,20 @@ let mapleader=","
 inoremap <Nul> <C-P>
 " ctrl+[hjl] navigate while in insert mode
 inoremap <C-h> <C-o>I
-inoremap <C-j> <C-o>o
+inoremap <C-j> <C-f><C-o>o
 inoremap <C-l> <C-o>A
 " ctrl+g get the the end of a word (e.g. to close a parenthesis)
 inoremap <C-g> <C-o>e<C-o>a
-" alt+= delete the next character
-inoremap ≠ <Del>
-" alt+[,] backward/forward a word in insert mode
-inoremap “ <C-o>b
-inoremap ‘ <C-o>w
 
 " NOMRAL MODE
-" ,/ clear highlighting
+" <space> and ,/ clear highlighting
+nnoremap <silent> <space> :nohlsearch<CR>
 nnoremap <silent> <leader>/ :nohlsearch<CR>
 " ,. save and quit
 nnoremap <silent> <leader>. :q<CR>
-" ,m save
+" ,m OR <enter> save
 nnoremap <silent> <leader>m :w<CR>
+nnoremap <CR> :w<CR>
 nnoremap ; :
 nnoremap <leader>s :source ~/.vimrc<CR>
 " wrap text
@@ -153,7 +160,7 @@ nnoremap <C-n> :NERDTreeToggle<CR>
 " among a bunch of tabs/splits
 nnoremap <C-a> <ESC>:BufExplorerVerticalSplit<CR>
 inoremap <C-a> <ESC>:BufExplorerVerticalSplit<CR>
-command S w | SyntasticCheck
+command! S w | SyntasticCheck
 
 " reopen a buffer in a vsplit
 nnoremap <C-x> :buffers<CR>:vert sb<SPACE>
@@ -163,32 +170,13 @@ nnoremap <C-c> :buffers<CR>:tabnew \| b<SPACE>
 
 " ctrl+k toggle high visibility for the cursor
 nnoremap <C-K> :call HighlightNearCursor()<CR>
-" ,[ad][sw] scroll adjacent window
-nnoremap <silent> <leader>dw :call ScrollOther("right", "up")<CR>
-nnoremap <silent> <leader>ds :call ScrollOther("right", "down")<CR>
-nnoremap <silent> <leader>aw :call ScrollOther("left", "up")<CR>
-nnoremap <silent> <leader>as :call ScrollOther("left", "down")<CR>
 
-command Q execute "tabclose"
-command B buffers
+nnoremap <F8> :setl noai nocin nosi inde=<CR>
 
-function ScrollOther(horiz, vert)
-    if a:horiz == "left"
-        let hmove = "W"
-        let revmove = "w"
-    elseif a:horiz == "right"
-        let hmove = "w"
-        let revmove = "W"
-    endif
-    if a:vert == "up"
-        let vmove = "\<C-U>"
-    elseif a:vert == "down"
-        let vmove = "\<C-D>"
-    endif
-    exec "normal \<C-W>" . hmove . vmove . "\<C-W>" . revmove
-endfunction
+command! Q execute "tabclose"
+command! B buffers
 
-function HighlightNearCursor()
+function! HighlightNearCursor()
   if !exists("s:highlightcursor")
     match Todo /\k*\%#\k*/
     set cursorline

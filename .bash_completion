@@ -17,7 +17,7 @@ function _omnicomplete_()
     case "$cmd" in
         v|vim)
             # exclude files matched by xpattern
-            local xpattern='(.*\.pdf$|.*\.log$|.*\.jpeg$|.*\.jpg|.*\.class$|.*\.mp3$|.*\.mp4$|.*\.swp$|.*\.pyc)'
+            local xpattern='(.*\.pdf$|.*\.jpeg$|.*\.jpg|.*\.class$|.*\.mp3$|.*\.mp4$|.*\.swp$|.*\.pyc)'
             ;;
         javac)
             # include only files matched by ipattern and directories
@@ -28,6 +28,9 @@ function _omnicomplete_()
             ;;
         gcc)
             local ipattern='.*\.c$'
+            ;;
+        open)
+            local xpattern='(.*\.tex$|.*\.aux$|.*\.log$)'
             ;;
         *)
             ;;
@@ -145,5 +148,9 @@ complete -o filenames -F _omnicomplete_ python3
 complete -o filenames -F _omnicomplete_ v
 complete -o filenames -F _omnicomplete_ vim
 
+# open
+complete -o filenames -F _omnicomplete_ open
+
 complete -F _sshcomplete_ ssh
 complete -o nospace -F _scpcomplete_ scp
+source ~/git.completion.bash

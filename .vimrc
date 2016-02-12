@@ -21,11 +21,13 @@ Bundle 'jlanzarotta/bufexplorer'
 Bundle 'tpope/vim-surround'
 Bundle 'https://github.com/vim-scripts/TaskList.vim'
 Bundle 'scrooloose/syntastic'
-Bundle 'jiangmiao/auto-pairs'
+"Bundle 'jiangmiao/auto-pairs'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'Valloric/YouCompleteMe'
 "Bundle 'ervandew/supertab'
+
+set grepprg=grep\ -nH\ $*
 
 let g:Powerline_theme = 'custom'
 let g:Powerline_colorscheme = 'turtle2'
@@ -73,6 +75,7 @@ set lazyredraw
 set splitright
 set showtabline=2
 set tabpagemax=15
+set nojoinspaces
 
 " COLORS
 colorscheme teal_airline
@@ -103,6 +106,7 @@ set foldmethod=syntax
 set nofoldenable
 
 let g:tex_flavor = "latex"
+set iskeyword+=:
 
 " Don't unfold while typing
 autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif

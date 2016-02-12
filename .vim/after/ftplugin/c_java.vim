@@ -2,10 +2,6 @@
 " Language: C, Java
 " Maps common to both C and java
 
-" INSERT
-" ctrl+y create if statement
-inoremap <C-y> if () {<CR>}<esc>kf)i
-
 " NORMAL
 " ,i surround current line with if statement
 nnoremap <silent> <leader>i >>Oif () {<esc>jo}<esc>kkf)i

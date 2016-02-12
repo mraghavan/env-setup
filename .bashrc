@@ -53,7 +53,7 @@ function _update_prompt()
     then
         if git diff --quiet &>/dev/null
         then
-            if git diff-index --quiet --cached HEAD
+            if git diff-index --quiet --cached HEAD 2>/dev/null
             then
                 _git_status=$_git_clean
                 _git_staged_status=""
@@ -63,7 +63,7 @@ function _update_prompt()
             fi
         else
             _git_status=$_git_uncommitted
-            if git diff-index --quiet --cached HEAD
+            if git diff-index --quiet --cached HEAD 2>/dev/null
             then
                 _git_staged_status=""
             else
@@ -71,9 +71,9 @@ function _update_prompt()
             fi
         fi
     fi
-    _git_ut_status=$(get_git_ut_status)
-    _git_branch=$(get_git_branch)
-    _s_pwd=$(short_pwd)
+    _git_ut_status=$(get_git_ut_status 2>/dev/null)
+    _git_branch=$(get_git_branch 2>/dev/null)
+    _s_pwd=$(short_pwd 2>/dev/null)
     # echo $_s_pwd
 }
 
@@ -96,7 +96,7 @@ function get_git_branch()
 {
     if [[ $_in_git == 0 ]]
     then
-        git symbolic-ref --short -q HEAD
+        git symbolic-ref --short -q HEAD 2>/dev/null
     fi
 }
 
@@ -153,6 +153,7 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias cp="cp -i"
 alias df="df -H"
+alias dsh="du -sh ./*"
 alias gcc="gcc -Wall"
 alias ll="ls -l"
 alias ls="ls -AFG"
@@ -165,19 +166,20 @@ alias vlc="open -a VLC"
 alias cleandesk="osascript $ASCRIPT/cleandesk.scpt"
 alias cdown="mv ~/Downloads/* ~/.Trash"
 alias check="ping -o www.google.com"
-alias diskspace="du | sort -n -r | more"
-alias hiddenoff="defaults write com.apple.Finder AppleShowAllFiles FALSE; killall Finder"
-alias hiddenon="defaults write com.apple.Finder AppleShowAllFiles TRUE; killall Finder"
+alias dsp="du -sh *"
 alias ipaddress="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | tail -n 1 | sed 's/.*inet \([^ ]*\) .*/\1/'"
 alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 alias thachi="osascript -e 'tell app \"System Events\" to sleep'"
+alias cw="mv ~/Downloads/*.puz ~/Desktop/crossword"
 
 set -o vi
 set -o allexport
 
-export EDITOR=vim
 export HISTIGNORE="&:[ ]*:exit"
 export GREP_OPTIONS='--color=auto'
+
+PYTHONPATH="/Users/manishraghavan/pybin":"${PYTHONPATH}"
+export PYTHONPATH
 
 function lx()
 {
